@@ -56,9 +56,10 @@ public class MyLinkedList <E> {
 
   public void clear() {
     length = 0;
+    start.setNext(end);
+    end.setPrev(start); 
     start = null;
     end = null;
-    start.setNext(end);
   }
 
   public int size() {
