@@ -1,20 +1,20 @@
-public class MyLinkedList{
+public class MyLinkedList <E> {
   class Node{
-    private Integer data;
+    private E data;
     private Node next, prev;
 
-    public Node(Integer d) {
+    public Node(E d) {
       data = d;
       prev = null;
       next = null;
     }
-    public Node (Node p, Integer d, Node n) {
+    public Node (Node p, E d, Node n) {
       prev = p;
       data = d;
       next = n;
     }
 
-    public void setData(Integer value) {
+    public void setData(E value) {
       data = value;
     }
 
@@ -26,7 +26,7 @@ public class MyLinkedList{
       prev = name;
     }
 
-    public Integer getData() {
+    public E getData() {
       return data;
     }
 
@@ -45,15 +45,35 @@ public class MyLinkedList{
     }
   }
 
+  private int length;
+  private Node start, end;
+
   public MyLinkedList() {
     length = 0;
     start= null;
     end = null;
   }
 
-  //need a clear;
+  public void clear() {
+    length = 0;
+    start = null;
+    end = null;
+    start.setNext(end);
+  }
 
-  public boolean add (Integer value) {
+  public int size() {
+    return length;
+  }
+
+  private Node getNthNode (int index) {
+    Node x = start; //starting with the first node
+    for (;index > 0; index--) { //until index is reached
+      x = x.next(); //move onto the next node
+    }
+    return x;
+  }
+
+  public boolean add (E value) {
     if (size() == 0) {
       Node A = new Node (null, value, end);
       start = A; //the start and end are the same
@@ -66,6 +86,41 @@ public class MyLinkedList{
     }
     length++;
     return true;
+  }
+
+  public E removeFront() {
+    E old = start.getData();
+    if (size() == 1) {
+      start = null;
+      end = null;
+    }
+    else {
+      Node y = start.next();
+      y.setPrev(null);
+      start.setNext(null);
+      start = y;
+    }
+    length--;
+    return old;
+  }
+
+  public void extend(MyLinkedList<E> other) {
+    if (this.size() == 0) {
+      int index = 0;
+      while (index < other.length) {
+        this.add(other.getNthNode(index).getData());
+        index++;
+      }
+      this.length = other.length; //changes size of first list
+      other.length = 0; //length of second list is 0
+    }
+    else {
+      this.end.setNext(other.start); //links two lists
+      other.start.setPrev(this.end);
+      this.end = other.end; //changes end of first list
+      this.length = this.length + other.length; //changes size of first list
+      other.length = 0; //length of second list is 0
+    }
   }
 
   public String toString() {
@@ -84,4 +139,24 @@ public class MyLinkedList{
     return s+"]";
   }
 
+  public static void main(String[] args) {
+    MyLinkedList<Integer> list = new MyLinkedList();
+    System.out.println("Empty List should print []: " + list);
+    System.out.println("List size should be 0: " + list.size());
+    System.out.println("Adding the value 0 should print true: " + list.add(0));
+    System.out.println("List should now be [0]: " + list);
+    System.out.println("List size should now be 1: " + list.size());
+    for (int x = 1; x < 10; x++){
+      list.add(x);
+    }
+    System.out.println("Adding values up to 10, list should be [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: " + list);
+    System.out.println("List size should now be 10: " + list.size());
+    for (int x = 0; x < 1000; x++) {
+      list.add(x);
+    }
+    System.out.println("Adding 1000 values to list, size should be 1010: " + list.size());
+    list.clear();
+    System.out.println(list);
+    System.out.println();
+  }
 }
