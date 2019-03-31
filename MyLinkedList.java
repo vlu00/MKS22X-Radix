@@ -56,8 +56,8 @@ public class MyLinkedList <E> {
 
   public void clear() {
     length = 0;
-    start.setNext(end);
-    end.setPrev(start); 
+    start.setNext(end); //gets rid of nodes in between start and end
+    end.setPrev(start);
     start = null;
     end = null;
   }
@@ -90,16 +90,16 @@ public class MyLinkedList <E> {
   }
 
   public E removeFront() {
-    E old = start.getData();
-    if (size() == 1) {
-      start = null;
+    E old = start.getData(); //return value is the start
+    if (size() == 1) { //if there is only one node
+      start = null; //list is null
       end = null;
     }
     else {
-      Node y = start.next();
-      y.setPrev(null);
-      start.setNext(null);
-      start = y;
+      Node y = start.next(); //second node
+      y.setPrev(null); //becomes first
+      start.setNext(null); //seperates start from list
+      start = y; //new start is the second nofe
     }
     length--;
     return old;
@@ -138,26 +138,5 @@ public class MyLinkedList <E> {
       }
     }
     return s+"]";
-  }
-
-  public static void main(String[] args) {
-    MyLinkedList<Integer> list = new MyLinkedList();
-    System.out.println("Empty List should print []: " + list);
-    System.out.println("List size should be 0: " + list.size());
-    System.out.println("Adding the value 0 should print true: " + list.add(0));
-    System.out.println("List should now be [0]: " + list);
-    System.out.println("List size should now be 1: " + list.size());
-    for (int x = 1; x < 10; x++){
-      list.add(x);
-    }
-    System.out.println("Adding values up to 10, list should be [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]: " + list);
-    System.out.println("List size should now be 10: " + list.size());
-    for (int x = 0; x < 1000; x++) {
-      list.add(x);
-    }
-    System.out.println("Adding 1000 values to list, size should be 1010: " + list.size());
-    list.clear();
-    System.out.println(list);
-    System.out.println();
   }
 }
