@@ -18,6 +18,20 @@ public class Radix{
   public static void radixsort(int[] data) {
     MyLinkedList[] buckets = new MyLinkedList[20];
     int runs = getMaxLength(data);
+    for (int i = 0; i < runs; i++) {
+      if (i = 0) {
+        for (int n = 0; n < data.length; n++) {
+          getDigit(data[i])
+          if (data[n] < 0) {
+
+          }
+        }
+      }
+      else {
+
+      }
+
+    }
   }
 
   public static void main(String[] args) {
