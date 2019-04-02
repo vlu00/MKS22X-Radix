@@ -1,5 +1,6 @@
-public class Radix{
+import java.util.*;
 
+public class Radix{
   public static int getMaxLength(int[] data) {
     int greatest = Math.abs(data[0]);
     for (int i = 1; i < data.length; i++) {
@@ -62,9 +63,8 @@ public class Radix{
 
   public static void main(String[] args) {
     int[] A = new int[] {1, 20, 3, 400, -4000, 6};
-    System.out.println(getMaxLength(A));
-    System.out.println(getDigit(A[3], 2));
-    System.out.println(getDigit(A[4], 4));
+    radixsort(A);
+    System.out.println(Arrays.toString(A));
   }
 
 }
