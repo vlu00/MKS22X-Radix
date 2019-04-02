@@ -25,7 +25,12 @@ public class Radix{
   }
 
   public static void radixsort(int[] data) {
+    //setup buckets
     MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    for (int m = 0; m < 20; m++) {
+      buckets[m] = new MyLinkedList();
+    }
+    //after first pass temp is used to stored semi-sorted values
     MyLinkedList<Integer> temp = new MyLinkedList();
     int runs = getMaxLength(data);
     for (int i = 0; i < runs; i++) {
@@ -56,6 +61,7 @@ public class Radix{
         temp.extend(buckets[k]);
       }
     }
+    //changes data
     for (int j = 0; j < data.length; j++) {
       data[j] = temp.removeFront();
     }
