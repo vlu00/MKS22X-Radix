@@ -7,30 +7,55 @@ public class Radix{
         greatest = Math.abs(data[i]);
       }
     }
-    int digits = 0;
+    int passes = 0;
     while (greatest > 0) {
-      digits++;
+      passes++;
       greatest = greatest / 10;
     }
-    return digits;
+    return passes;
+  }
+
+  public static int getDigit(int num, int pass) {
+    while (pass > 0) {
+      num = num / 10;
+    }
+    return num % 10; 
   }
 
   public static void radixsort(int[] data) {
-    MyLinkedList[] buckets = new MyLinkedList[20];
+    MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
+    MyLinkedList<Integer> temp = new MyLinkedList();
     int runs = getMaxLength(data);
     for (int i = 0; i < runs; i++) {
-      if (i = 0) {
+      if (i == 0) {
         for (int n = 0; n < data.length; n++) {
-          getDigit(data[i])
+          int digit = getDigit(data[n], i);
           if (data[n] < 0) {
-
+            buckets[digit+10].add(data[n]);
+          }
+          else {
+            buckets[9-digit].add(data[n]);
           }
         }
       }
       else {
-
+        for (int n = 0; n < temp.size(); n++) {
+          int num = temp.removeFront();
+          int digit = getDigit(num, i);
+          if (num < 0) {
+            buckets[digit+10].add(num);
+          }
+          else {
+            buckets[9-digit].add(num);
+          }
+        }
       }
-
+      for (int k = 0; k < 20; k++) {
+        temp.extend(buckets[k]);
+      }
+    }
+    for (int j = 0; j < data.length; j++) {
+      data[j] = temp.removeFront();
     }
   }
 
