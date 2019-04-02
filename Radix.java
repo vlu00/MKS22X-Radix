@@ -58,7 +58,9 @@ public class Radix{
         }
       }
       for (int k = 0; k < 20; k++) {
-        temp.extend(buckets[k]);
+        if (buckets[k].size() > 0) {
+          temp.extend(buckets[k]);
+        }
       }
     }
     //changes data
