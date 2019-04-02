@@ -42,7 +42,8 @@ public class Radix{
       if (i == 0) {
         for (int n = 0; n < data.length; n++) {
           int digit = getDigit(data[n], i);
-          if (data[n] < 0) {
+          System.out.println(data[n] + " digit " + digit + " pass " + i);
+          if (data[n] > 0) {
             buckets[digit+10].add(data[n]);
           }
           else {
@@ -51,10 +52,13 @@ public class Radix{
         }
       }
       else {
-        for (int n = 0; n < temp.size(); n++) {
+        int tempsize = temp.size();
+        //System.out.println ( "tempsize " + temp.size()); 
+        for (int n = 0; n < tempsize; n++) {
           int num = temp.removeFront();
           int digit = getDigit(num, i);
-          if (num < 0) {
+          System.out.println(num + " digit " + digit + " pass " + i);
+          if (num > 0) {
             buckets[digit+10].add(num);
           }
           else {
@@ -67,6 +71,7 @@ public class Radix{
           temp.extend(buckets[k]);
         }
       }
+      System.out.println(temp);
     }
     //changes data
     for (int j = 0; j < data.length; j++) {
@@ -76,8 +81,7 @@ public class Radix{
 
   public static void main(String[] args) {
     int[] A = new int[] {1, 20, 3, 401, -4000, 6};
-    System.out.println(getDigit(A[3], 0));//radixsort(A);
-    System.out.println(getMaxLength(A)); 
+    radixsort(A);
     System.out.println(Arrays.toString(A));
   }
 
