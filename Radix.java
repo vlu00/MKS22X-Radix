@@ -16,10 +16,11 @@ public class Radix{
   }
 
   public static int getDigit(int num, int pass) {
-    while (pass > 0) {
+    while (pass > 1) {
       num = num / 10;
+      pass--;
     }
-    return num % 10; 
+    return Math.abs(num % 10);
   }
 
   public static void radixsort(int[] data) {
@@ -62,6 +63,8 @@ public class Radix{
   public static void main(String[] args) {
     int[] A = new int[] {1, 20, 3, 400, -4000, 6};
     System.out.println(getMaxLength(A));
+    System.out.println(getDigit(A[3], 2));
+    System.out.println(getDigit(A[4], 4));
   }
 
 }
