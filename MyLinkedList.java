@@ -48,6 +48,7 @@ public class MyLinkedList <E> {
   private int length;
   private Node start, end;
 
+  @SuppressWarnings("unchecked")
   public MyLinkedList() {
     length = 0;
     start= null;
@@ -105,6 +106,7 @@ public class MyLinkedList <E> {
     return old;
   }
 
+  @SuppressWarnings("unchecked")
   public void extend(MyLinkedList<E> other) {
     if (this.size() == 0) {
       int index = 0;
