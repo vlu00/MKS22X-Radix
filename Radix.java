@@ -17,11 +17,16 @@ public class Radix{
   }
 
   public static int getDigit(int num, int pass) {
-    while (pass > 1) {
+    while (pass > 0) {
       num = num / 10;
       pass--;
     }
-    return Math.abs(num % 10);
+    if (num == 0) {
+      return 0;
+    }
+    else {
+      return Math.abs(num % 10);
+    }
   }
 
   public static void radixsort(int[] data) {
@@ -70,8 +75,9 @@ public class Radix{
   }
 
   public static void main(String[] args) {
-    int[] A = new int[] {1, 20, 3, 400, -4000, 6};
-    radixsort(A);
+    int[] A = new int[] {1, 20, 3, 401, -4000, 6};
+    System.out.println(getDigit(A[3], 0));//radixsort(A);
+    System.out.println(getMaxLength(A)); 
     System.out.println(Arrays.toString(A));
   }
 
