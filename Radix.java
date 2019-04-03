@@ -8,19 +8,12 @@ public class Radix{
         greatest = Math.abs(data[i]);
       }
     }
-    int passes = 0;
-    while (greatest > 0) {
-      passes++;
-      greatest = greatest / 10;
-    }
-    return passes;
+    String num = "" + greatest;
+    return num.length();
   }
 
   public static int getDigit(int num, int pass) {
-    while (pass > 0) {
-      num = num / 10;
-      pass--;
-    }
+    num = (int)(num / Math.pow(10, pass));
     if (num == 0) {
       return 0;
     }
@@ -37,8 +30,7 @@ public class Radix{
     }
     //after first pass temp is used to stored semi-sorted values
     MyLinkedList<Integer> temp = new MyLinkedList();
-    int runs = getMaxLength(data);
-    for (int i = 0; i < runs; i++) {
+    for (int i = 0; i < getMaxLength(data); i++) {
       if (i == 0) {
         for (int n = 0; n < data.length; n++) {
           int digit = getDigit(data[n], i);
@@ -78,6 +70,8 @@ public class Radix{
   public static void main(String[] args) {
     int[] A = new int[] {1, 20, -308, 16, 401, -4000, 6};
     radixsort(A);
+    String B = "200";
+    System.out.println(B.length());
     System.out.println(Arrays.toString(A));
   }
 
