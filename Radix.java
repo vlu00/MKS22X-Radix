@@ -31,28 +31,22 @@ public class Radix{
     //after first pass temp is used to stored semi-sorted values
     MyLinkedList<Integer> temp = new MyLinkedList();
     for (int i = 0; i < getMaxLength(data); i++) {
-      if (i == 0) {
-        for (int n = 0; n < data.length; n++) {
-          int digit = getDigit(data[n], i);
-          if (data[n] > 0) {
-            buckets[digit+10].add(data[n]);
-          }
-          else {
-            buckets[9-digit].add(data[n]);
-          }
+      for (int n = 0; n < data.length; n++) {
+        int digit;
+        int num;
+        if (i == 0) {
+          digit = getDigit(data[n], i);
+          num = data[n];
         }
-      }
-      else {
-        int tempsize = temp.size();
-        for (int n = 0; n < tempsize; n++) {
-          int num = temp.removeFront();
-          int digit = getDigit(num, i);
-          if (num > 0) {
-            buckets[digit+10].add(num);
-          }
-          else {
-            buckets[9-digit].add(num);
-          }
+        else {
+          num = temp.removeFront();
+          digit = getDigit(num, i);
+        }
+        if (num > 0) {
+          buckets[digit+10].add(num);
+        }
+        else {
+          buckets[9-digit].add(num);
         }
       }
       for (int k = 0; k < 20; k++) {
@@ -67,12 +61,38 @@ public class Radix{
     }
   }
 
-  public static void main(String[] args) {
-    int[] A = new int[] {1, 20, -308, 16, 401, -4000, 6};
-    radixsort(A);
-    String B = "200";
-    System.out.println(B.length());
-    System.out.println(Arrays.toString(A));
-  }
-
+  public static void main(String[]args){
+  System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+  int[]MAX_LIST = {1000000000,500,10};
+  for(int MAX : MAX_LIST){
+    for(int size = 31250; size < 2000001; size*=2){
+      long qtime=0;
+      long btime=0;
+      //average of 5 sorts.
+      for(int trial = 0 ; trial <=5; trial++){
+        int []data1 = new int[size];
+        int []data2 = new int[size];
+        for(int i = 0; i < data1.length; i++){
+          data1[i] = (int)(Math.random()*MAX);
+          data2[i] = data1[i];
+        }
+        long t1,t2;
+        t1 = System.currentTimeMillis();
+        Radix.radixsort(data2);
+        t2 = System.currentTimeMillis();
+        qtime += t2 - t1;
+        t1 = System.currentTimeMillis();
+        Arrays.sort(data1);
+        t2 = System.currentTimeMillis();
+        btime+= t2 - t1;
+        if(!Arrays.equals(data1,data2)){
+          System.out.println("FAIL TO SORT!");
+          System.exit(0);
+        }
+      }
+      System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+     }
+     System.out.println();
+   }
+ }
 }
