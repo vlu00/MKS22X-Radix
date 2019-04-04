@@ -67,15 +67,7 @@ public class MyLinkedList <E> {
     return length;
   }
 
-  private Node getNthNode (int index) {
-    Node x = start; //starting with the first node
-    for (;index > 0; index--) { //until index is reached
-      x = x.next(); //move onto the next node
-    }
-    return x;
-  }
-
-  public boolean add (E value) {
+  public void add (E value) {
     if (size() == 0) {
       Node A = new Node (null, value, end);
       start = A; //the start and end are the same
@@ -87,7 +79,6 @@ public class MyLinkedList <E> {
       end = A;
     }
     length++;
-    return true;
   }
 
   public E removeFront() {
@@ -109,13 +100,10 @@ public class MyLinkedList <E> {
   @SuppressWarnings("unchecked")
   public void extend(MyLinkedList<E> other) {
     if (this.size() == 0) {
-      int index = 0;
-      while (index < other.length) {
-        this.add(other.getNthNode(index).getData());
-        index++;
-      }
-      this.length = other.length; //changes size of first list
-      other.length = 0; //length of second list is 0
+      this.start = other.start;
+      this.end = other.end;
+      this.length = other.length;
+      other.length = 0;
     }
     else {
       this.end.setNext(other.start); //links two lists
