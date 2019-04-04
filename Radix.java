@@ -39,7 +39,7 @@ public class Radix{
           num = data[n];
         }
         else {
-          num = temp.removeFront();
+          num = temp.nextN(n, data.length);
           digit = getDigit(num, i);
         }
         if (num > 0) {
@@ -49,6 +49,7 @@ public class Radix{
           buckets[9-digit].add(num);
         }
       }
+      temp.clear();
       for (int k = 0; k < 20; k++) {
         if (buckets[k].size() > 0) {
           temp.extend(buckets[k]);
@@ -57,7 +58,8 @@ public class Radix{
     }
     //changes data
     for (int j = 0; j < data.length; j++) {
-      data[j] = temp.removeFront();
+      data[j] = temp.nextN(j, data.length);
     }
   }
+
 }

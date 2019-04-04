@@ -53,16 +53,13 @@ public class MyLinkedList <E> {
     length = 0;
     start= null;
     end = null;
-    //current = start;
-  }
-
-  public void reset() {
-    current = start;
   }
 
   public E nextN(int n, int l) {
+    if (n == 0) {
+      current = start;
+    }
     E old = current.getData();
-    //System.out.println(old);
     if (n < l-1) {
       current = current.next();
     }
@@ -73,8 +70,6 @@ public class MyLinkedList <E> {
     length = 0;
     start = null;
     end = null;
-    //end.setPrev(start);
-    //start.setNext(end); //gets rid of nodes in between start and end
   }
 
   public int size() {
@@ -144,18 +139,4 @@ public class MyLinkedList <E> {
     return s+"]";
   }
 
-  public static void main(String[] args) {
-    MyLinkedList<Integer> A = new MyLinkedList();
-    A.add(1);
-    A.add(2);
-    A.add(3);
-    A.add(4);
-    System.out.println(A);
-    A.reset();
-    System.out.println(A.nextN(0, 4));
-    System.out.println(A.nextN(1, 4));
-    System.out.println(A.nextN(2, 4));
-    System.out.println(A.nextN(3, 4));
-
-  }
 }
